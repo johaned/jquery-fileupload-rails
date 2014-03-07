@@ -91,6 +91,12 @@ Require the stylesheet file to app/assets/stylesheets/application.css
           progress = parseInt(data.loaded / data.total * 100, 10)
           $("#progress .bar").css "width", progress + "%"  
       return
+      
+## Using the middleware
+
+The `jquery.iframe-transport` fallback transport has some special caveats regarding the response data type, http status, and character encodings. `jquery-fileupload-rails` includes a middleware that handles these inconsistencies seamlessly. If you decide to use it, create an initializer that adds the middleware to your application's middleware stack.
+
+    Rails.application.config.middleware.use JQuery::FileUpload::Rails::Middleware
 
 ## Thanks
 Thanks to [Sebastian Tschan](https://github.com/blueimp) for writing an awesome file upload plugin.
