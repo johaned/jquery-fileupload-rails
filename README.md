@@ -4,15 +4,15 @@
 
 jquery-fileupload-rails is a library that integrates jQuery File Upload for Rails 3.1 Asset Pipeline (Rails 3.2 supported).
 
-## Plugin versions
+## Plugin versions (7-march-2014)
 
-* jQuery File Upload User Interface Plugin 6.11
-* jQuery File Upload Plugin 5.19.3
-* jQuery UI Widget 1.9.1+amd
+* jQuery File Upload User Interface Plugin 8.7.1
+* jQuery File Upload Plugin 5.40.1
+* jQuery UI Widget 1.10.4+amd
 
 ## Installing Gem
 
-    gem "jquery-fileupload-rails"
+    gem "jquery-fileupload-rails", :git => 'git://github.com/Johaned/jquery-fileupload-rails'
 
 ## Using the javascripts
 
@@ -40,21 +40,63 @@ If you only need the basic files, just add the code below to your application.js
 
 The basic setup only includes the following files:
 
-    //= require jquery-fileupload/vendor/jquery.ui.widget
-    //= require jquery-fileupload/jquery.iframe-transport
-    //= require jquery-fileupload/jquery.fileupload
+    //=require jquery-fileupload/vendor/jquery.ui.widget
+    //=require jquery-fileupload/jquery.iframe-transport
+    //=require jquery-fileupload/jquery.fileupload
+    //=require jquery-fileupload/locale
 
 ## Using the stylesheet
 
 Require the stylesheet file to app/assets/stylesheets/application.css
 
     *= require jquery.fileupload-ui
+    
+## Example of Use (Rails 3.1 - RailsCast 381 Based)
+
+#### Painting Index Page
+    <h1>Painting Gallery</h1>
+
+    <div id="paintings">
+        <%= render @paintings %>
+    </div>
+    <div class="clear"></div>
+
+    <%= form_for Painting.new do |f| %>
+        <%= f.label :image, "Upload paintings:" %>
+        <%= f.file_field :image, name: "painting[image]" %>
+    <% end %>
+
+    <div id="progress">
+        <div class="bar" style="width: 0%;"></div>
+    </div>
+
+#### paintings.js.coffee
+
+    $ ->
+      if($.browser.msie && !$.support.xhrFileUpload)# works fine with jquery 1.8.3, in jquery 1.10 it does not work
+        force_iframe = true 
+        data_type = 'iframe'
+      else
+        force_iframe = false
+        data_type = 'script'
+      $('#new_painting').fileupload
+        dataType: data_type
+        forceIframeTransport: force_iframe
+        add: (e, data) ->
+          data.context = $("<p/>").text("Uploading...").appendTo(document.body)
+          data.submit()
+        done: (e, data) ->
+          data.context.text "Upload finished."
+        progressall: (e, data) ->
+          progress = parseInt(data.loaded / data.total * 100, 10)
+          $("#progress .bar").css "width", progress + "%"  
+      return
 
 ## Thanks
 Thanks to [Sebastian Tschan](https://github.com/blueimp) for writing an awesome file upload plugin.
 
 ## License
-Copyright (c) 2012 Tors Dalid
+Copyright (c) 2014 Tors Dalid
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
