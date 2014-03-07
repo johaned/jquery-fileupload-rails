@@ -22,15 +22,17 @@ Require jquery-fileupload in your app/assets/application.js file.
 
 The snippet above will add the following js files to the mainfest file.
 
-    //= require jquery-fileupload/vendor/jquery.ui.widget
-    //= require jquery-fileupload/vendor/load-image
-    //= require jquery-fileupload/vendor/canvas-to-blob
-    //= require jquery-fileupload/vendor/tmpl
-    //= require jquery-fileupload/jquery.iframe-transport
-    //= require jquery-fileupload/jquery.fileupload
-    //= require jquery-fileupload/jquery.fileupload-fp
-    //= require jquery-fileupload/jquery.fileupload-ui
-    //= require jquery-fileupload/locale
+    //=require jquery-fileupload/vendor/jquery.ui.widget
+    //=require jquery-fileupload/jquery.iframe-transport
+    //=require jquery-fileupload/jquery.fileupload
+    //=require jquery-fileupload/jquery.fileupload-ui
+    //=require jquery-fileupload/jquery.fileupload-audio
+    //=require jquery-fileupload/jquery.fileupload-image
+    //=require jquery-fileupload/jquery.fileupload-video
+    //=require jquery-fileupload/jquery.fileupload-jquery-ui
+    //=require jquery-fileupload/jquery.fileupload-validate
+    //=require jquery-fileupload/jquery.fileupload-process
+    //=require jquery-fileupload/locale
 
 If you only need the basic files, just add the code below to your application.js file. [Basic setup guide](https://github.com/blueimp/jQuery-File-Upload/wiki/Basic-plugin)
 
@@ -47,19 +49,6 @@ The basic setup only includes the following files:
 Require the stylesheet file to app/assets/stylesheets/application.css
 
     *= require jquery.fileupload-ui
-
-## Using the middleware
-
-The `jquery.iframe-transport` fallback transport has some special caveats regarding the response data type, http status, and character encodings. `jquery-fileupload-rails` includes a middleware that handles these inconsistencies seamlessly. If you decide to use it, create an initializer that adds the middleware to your application's middleware stack.
-
-    Rails.application.config.middleware.use JQuery::FileUpload::Rails::Middleware
-
-## [Example app](https://github.com/tors/jquery-fileupload-rails-paperclip-example)
-This app uses paperclip and twitter-bootstrap-rails
-
-You can also check out Ryan Bate's RailsCast [jQuery File Upload episode](http://railscasts.com/episodes/381-jquery-file-upload). You will
-need a pro account to watch it though.
-
 
 ## Thanks
 Thanks to [Sebastian Tschan](https://github.com/blueimp) for writing an awesome file upload plugin.

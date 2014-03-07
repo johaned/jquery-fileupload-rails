@@ -1,7 +1,7 @@
 module JQuery
   module FileUpload
     module Rails
-      VERSION = "0.4.1"
+      VERSION = "9.5.6"
     end
   end
 end
